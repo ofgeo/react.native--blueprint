@@ -1,1 +1,1 @@
-export default "Hello World!!!"
+export default "I am just a MOCK!!!"

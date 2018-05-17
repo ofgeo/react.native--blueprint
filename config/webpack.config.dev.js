@@ -1,11 +1,11 @@
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const paths = require('./paths');
-const extensions = [...require('./extensions')];
+const extensions = require('./extensions');
 const webpack = require('webpack');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const REACT_LOADABLE_PLUGIN = new (require('react-loadable/webpack').ReactLoadablePlugin)({
   filename: paths.loadableJson
@@ -19,18 +19,19 @@ const STATIC_SITE_GENERATOR_PLUGIN = new (require('static-site-generator-webpack
   }
 });
 
-const EXTENSIONS = [
-  ...extensions.map(function (ext) {
-    return `.${ext}`
-  }),
+const RESOLVE_EXTENSIONS = [
   '.web.js',
-  '.js'
+  '.js',
 ];
+
+if (extensions) {
+  RESOLVE_EXTENSIONS.push(`.${extensions}`)
+}
 
 const publicPath = '/';
 
 const APPLICATION = {
-  name: "bundle",
+  name: 'bundle',
   mode: 'development',
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
@@ -53,7 +54,7 @@ const APPLICATION = {
         path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   resolve: {
-    extensions: EXTENSIONS,
+    extensions: RESOLVE_EXTENSIONS,
   },
   module: {
     strictExportPresence: true,
@@ -160,7 +161,7 @@ const STATIC = {
     libraryTarget: "umd"
   },
   resolve: {
-    extensions: EXTENSIONS,
+    extensions: RESOLVE_EXTENSIONS,
   },
   module: {
     strictExportPresence: true,

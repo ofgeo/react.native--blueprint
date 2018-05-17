@@ -26,7 +26,7 @@ app.use(webpackHotMiddleware(compiler, {
 }));
 
 app.listen(PORT, function () {
-  // console.log(chalk.cyan('Starting the development server...\n'));
-  openBrowser('http://localhost:' + PORT);
+  console.log(chalk.cyan('Starting the development server...\n'));
+  // openBrowser('http://localhost:' + PORT);
 });
 
